@@ -16,9 +16,9 @@ const app = express();
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
-    credentials : true,
-    methods : ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders : ["Content-Type", "Authorization"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 
@@ -33,7 +33,8 @@ app.route("/").get((req: Request, res: Response) => {
 
 import healthCheckRouter from "./routes/healthcheck.routes";
 import authRouter from "./routes/auth.routes";
-
+import { errorHandler } from "./middlewares/error.middleware";
+import logger from "./loggers/winston.logger";
 
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth", authRouter);
@@ -41,9 +42,11 @@ app.use("/api/v1/auth", authRouter);
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+      logger.info("⚙️  Server is running on PORT: " + PORT);
     });
   })
-  .catch(() => {
-    console.log("Error connecting to database");
+  .catch((error) => {
+    logger.error("MongoDB Connection Error: ", error);
   });
+
+app.use(errorHandler);
