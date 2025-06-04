@@ -11,7 +11,7 @@ export const removeLocalFile = (localPath : string) => {
   });
 };
 
-export const removeUnusedMulterImageFilesOnError = (req : Request) => {
+export const removeFiles = (req : Request) => {
   try {
     const multerFile = req.file;
     const multerFiles = req.files;

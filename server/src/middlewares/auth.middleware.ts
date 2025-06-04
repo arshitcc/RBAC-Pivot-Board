@@ -8,7 +8,6 @@ import { ApiError } from "../utils/api-error";
 import { isValidObjectId } from "mongoose";
 import { UserRoles, UserRolesEnum } from "../constants/constants";
 import { ProjectMember } from "../models/projectmember.models";
-import { Task } from "../models/task.models";
 
 const authenticateUser = asyncHandler(
   async (req: CustomRequest, res: Response, next: NextFunction) => {
