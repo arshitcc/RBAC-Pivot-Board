@@ -15,6 +15,9 @@ const createTaskValidators = () => {
       .withMessage("Task Description is required")
       .isLength({ min: 2, max: 100 })
       .withMessage("Task Description must be between 2 and 100 characters"),
+    body("assignedToId")
+      .isMongoId()
+      .withMessage("Invalid Assignee ID"),
   ];
 };
 
@@ -34,7 +37,7 @@ const updateTaskValidators = () => {
       .withMessage("Task Description is required")
       .isLength({ min: 2, max: 100 })
       .withMessage("Task Description must be between 2 and 100 characters"),
-    body("assignedTo")
+    body("assignedToId")
       .optional()
       .isMongoId()
       .withMessage("Invalid Assignee ID"),

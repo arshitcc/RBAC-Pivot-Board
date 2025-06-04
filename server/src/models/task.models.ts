@@ -10,8 +10,8 @@ export interface ITask extends mongoose.Document {
   name: string;
   description: string;
   projectId: mongoose.Types.ObjectId;
-  assignedTo: mongoose.Types.ObjectId;
-  assignedBy: mongoose.Types.ObjectId;
+  assignedToId: mongoose.Types.ObjectId;
+  assignedById: mongoose.Types.ObjectId;
   status: TaskStatuses;
   attachments: File[];
 }
@@ -33,12 +33,12 @@ const taskSchema = new mongoose.Schema<ITask>(
       ref: "Project",
       required: true,
     },
-    assignedTo: {
+    assignedToId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    assignedBy: {
+    assignedById: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -47,7 +47,6 @@ const taskSchema = new mongoose.Schema<ITask>(
       type: String,
       enum: AvailableTaskStatuses,
       default: TaskStatusEnum.TODO,
-      required: true,
     },
     attachments: [
       {
