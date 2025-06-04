@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import logger from "../loggers/winston.logger";
 import { ApiError } from "../utils/api-error";
-import { removeUnusedMulterImageFilesOnError } from "../utils/helpers";
+import { removeFiles } from "../utils/helpers";
 
 const errorHandler : ErrorRequestHandler = (
   err: any,
@@ -28,7 +28,7 @@ const errorHandler : ErrorRequestHandler = (
 
   logger.error(`${error.message}`);
 
-  removeUnusedMulterImageFilesOnError(req);
+  removeFiles(req);
   res.status(error.statusCode).json(response);
   return;
 };

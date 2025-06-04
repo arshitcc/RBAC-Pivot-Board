@@ -39,7 +39,7 @@ const userRegisterValidation = () => [
     .withMessage("Username is required")
     .isLength({ min: 5, max: 60 })
     .withMessage("Username must be between 5 and 60 characters"),
-];
+] as ValidationChain[];
 
 const userLoginValidation = () =>
   [
@@ -88,7 +88,7 @@ const userChangeCurrentPasswordValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("New password is required"),
-  ];
+  ] as ValidationChain[];
 };
 
 const userForgotPasswordRequestValidator = () => {
@@ -99,13 +99,13 @@ const userForgotPasswordRequestValidator = () => {
       .withMessage("Email is required")
       .isEmail()
       .withMessage("Email is invalid"),
-  ];
+  ] as ValidationChain[];
 };
 
 const userResetForgottenPasswordValidator = () => {
   return [
     body("newPassword").trim().notEmpty().withMessage("Password is required"),
-  ];
+  ] as ValidationChain[];
 };
 
 const userAssignRoleValidator = () => {
@@ -114,7 +114,7 @@ const userAssignRoleValidator = () => {
       .optional()
       .isIn(AvailableUserRoles)
       .withMessage("Invalid user role"),
-  ];
+  ] as ValidationChain[];
 };
 
 export {

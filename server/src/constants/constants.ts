@@ -27,11 +27,19 @@ export const TaskStatusEnum = {
   DONE: "done",
 } as const;
 
+export const ProjectStausEnum = {
+  ACTIVE: "active",
+  INACTIVE: "inactive",
+  DISCARDED: "discarded",
+} as const;
+
 export const AvailableUserRoles = Object.values(UserRolesEnum);
 export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
 export const AvailableCouponTypes = Object.values(CouponTypeEnum);
 export const AvailableAuthTypes = Object.values(UserAuthType);
 export const AvailableTaskStatuses = Object.values(TaskStatusEnum);
+export const AvailableProjectStatuses = Object.values(ProjectStausEnum);
 
 export type UserRoles = (typeof AvailableUserRoles)[number];
 export type TaskStatuses = (typeof AvailableTaskStatuses)[number];
+export type ProjectStatuses = (typeof AvailableProjectStatuses)[number];
