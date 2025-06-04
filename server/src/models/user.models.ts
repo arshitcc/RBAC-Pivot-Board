@@ -14,8 +14,16 @@ import {
   AvailableAuthTypes,
   AvailableUserRoles,
   UserAuthType,
+  UserRoles,
   UserRolesEnum,
 } from "../constants/constants";
+
+export interface File {
+  url: string;
+  format: string;
+  resource_type: string;
+  public_id: string;
+}
 
 export interface IUser extends Document {
   fullname: string;
@@ -24,7 +32,7 @@ export interface IUser extends Document {
   password: string;
   loginType: string;
   avatar: object;
-  role: string;
+  role: UserRoles;
   isEmailVerified: boolean;
   emailVerificationToken: string | undefined;
   emailVerificationExpiry: Date | undefined;
@@ -69,7 +77,7 @@ const userSchema = new mongoose.Schema<IUser>(
     role: {
       type: String,
       enum: AvailableUserRoles,
-      default: UserRolesEnum.USER,
+      default: UserRolesEnum.MEMBER,
       required: true,
     },
     avatar: {

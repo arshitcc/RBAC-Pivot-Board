@@ -1,7 +1,7 @@
 export const UserRolesEnum = {
   ADMIN: "admin",
-  USER: "user",
-  GUEST: "guest",
+  PROJECT_ADMIN: "project_admin",
+  MEMBER: "member",
 } as const;
 
 export const PaymentProviderEnum = {
@@ -21,7 +21,17 @@ export const UserAuthType = {
   CREDENTIALS: "credentials",
 } as const;
 
+export const TaskStatusEnum = {
+  TODO: "todo",
+  IN_PROGRESS: "in_progress",
+  DONE: "done",
+} as const;
+
 export const AvailableUserRoles = Object.values(UserRolesEnum);
 export const AvailablePaymentProviders = Object.values(PaymentProviderEnum);
 export const AvailableCouponTypes = Object.values(CouponTypeEnum);
 export const AvailableAuthTypes = Object.values(UserAuthType);
+export const AvailableTaskStatuses = Object.values(TaskStatusEnum);
+
+export type UserRoles = (typeof AvailableUserRoles)[number];
+export type TaskStatuses = (typeof AvailableTaskStatuses)[number];
