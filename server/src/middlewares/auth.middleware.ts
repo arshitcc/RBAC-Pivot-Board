@@ -47,7 +47,7 @@ const authenticateUser = asyncHandler(
   },
 );
 
-const verifyProjectPermission = (roles: UserRoles[] = []) =>
+const verifyPermission = (roles: UserRoles[] = []) =>
   asyncHandler(
     async (req: CustomRequest, res: Response, next: NextFunction) => {
       if (req.user.role === UserRolesEnum.ADMIN) {
@@ -71,7 +71,7 @@ const verifyProjectPermission = (roles: UserRoles[] = []) =>
 
       const projectMember = await ProjectMember.findOne({
         projectId,
-        userId: req.user._id,
+        memberId: req.user._id,
         role: { $in: roles },
       });
 
@@ -83,69 +83,4 @@ const verifyProjectPermission = (roles: UserRoles[] = []) =>
     },
   );
 
-const verifyTaskPermission = (roles: UserRoles[] = []) =>
-  asyncHandler(
-    async (req: CustomRequest, res: Response, next: NextFunction) => {
-      if (req.user.role === UserRolesEnum.ADMIN) {
-        // A global ADMIN does not need a permission, they can do everything.
-        return next();
-      }
-
-      if (!req.user?._id) {
-        throw new ApiError(401, "Unauthorized request");
-      }
-
-      const { projectId, taskId } = req.params;
-
-      if (!isValidObjectId(taskId) || !isValidObjectId(projectId)) {
-        throw new ApiError(400, "Invalid Task or Project");
-      }
-
-      if (!roles.includes(req.user.role)) {
-        throw new ApiError(403, "Unauthorized action");
-      }
-
-      const projectAdmin = await ProjectMember.findOne({
-        projectId,
-        memberId: req.user._id,
-        role: { $in: roles },
-      });
-
-      if (projectAdmin) {
-        return next();
-      }
-
-      if (
-        req.method.trim().toLowerCase() === "delete" ||
-        req.method === "patch"
-      ) {
-        // not a project admin
-        const taskAssignedBy = await Task.findOne({
-          _id: taskId,
-          projectId,
-          assignedBy: req.user._id,
-        });
-
-        if (!taskAssignedBy) {
-          // not a task creator, then who the hell are you to delete or update
-          throw new ApiError(403, "Unauthorized action");
-        }
-
-        return next();
-      }
-
-      const taskMember = await Task.findOne({
-        _id: taskId,
-        projectId,
-        $or: [{ assignedTo: req.user._id }, { assignedBy: req.user._id }],
-      });
-
-      if (!taskMember) {
-        throw new ApiError(403, "Unauthorized action");
-      }
-
-      next();
-    },
-  );
-
-export { authenticateUser, verifyProjectPermission, verifyTaskPermission };
+export { authenticateUser, verifyPermission };

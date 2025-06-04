@@ -3,7 +3,7 @@ import { AvailableUserRoles, UserRoles, UserRolesEnum } from "../constants/const
 
 export interface IProjectMember {
   projectId: mongoose.Types.ObjectId;
-  userId: mongoose.Types.ObjectId;
+  memberId: mongoose.Types.ObjectId;
   role: UserRoles;
 }
 
@@ -14,7 +14,7 @@ const projectMemberSchema = new mongoose.Schema<IProjectMember>(
       ref: "Project",
       required: true,
     },
-    userId: {
+    memberId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
