@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface IProjectNote extends mongoose.Document {
   projectId: mongoose.Types.ObjectId;
-  createdBy: mongoose.Types.ObjectId;
+  createdById: mongoose.Types.ObjectId;
   content: string;
 }
 
@@ -13,7 +13,7 @@ const projectNoteSchema = new mongoose.Schema<IProjectNote>(
       ref: "Project",
       required: true,
     },
-    createdBy: {
+    createdById: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
