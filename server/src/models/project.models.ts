@@ -5,7 +5,7 @@ export interface IProject extends mongoose.Document {
   name: string;
   description: string;
   status : ProjectStatuses;
-  createdBy: mongoose.Types.ObjectId;
+  createdById: mongoose.Types.ObjectId;
 }
 
 const projectSchema = new mongoose.Schema<IProject>(
@@ -25,7 +25,7 @@ const projectSchema = new mongoose.Schema<IProject>(
       enum : AvailableProjectStatuses,
       default : ProjectStausEnum.ACTIVE
     },
-    createdBy: {
+    createdById: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

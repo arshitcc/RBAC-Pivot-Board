@@ -8,7 +8,7 @@ import { deleteFile, uploadFile } from "../utils/cloudinary";
 import mongoose from "mongoose";
 import { SubTask } from "../models/subtask.models";
 
-const commonTaskAggregation = () => [
+export const commonTaskAggregation = () => [
   {
     $lookup: {
       from: "users",
