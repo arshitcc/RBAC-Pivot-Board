@@ -7,7 +7,7 @@ import { ACCESS_TOKEN_SECRET } from "../utils/env";
 import { ApiError } from "../utils/api-error";
 import { isValidObjectId } from "mongoose";
 import { UserRoles, UserRolesEnum } from "../constants/constants";
-import { ProjectMember } from "../models/projectmember.models";
+import { ProjectMember } from "../models/project-member.models";
 
 const authenticateUser = asyncHandler(
   async (req: CustomRequest, res: Response, next: NextFunction) => {

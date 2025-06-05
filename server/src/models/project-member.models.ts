@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
-import { AvailableUserRoles, UserRoles, UserRolesEnum } from "../constants/constants";
+import {
+  AvailableUserRoles,
+  UserRoles,
+  UserRolesEnum,
+} from "../constants/constants";
 
 export interface IProjectMember {
   projectId: mongoose.Types.ObjectId;
@@ -23,7 +27,6 @@ const projectMemberSchema = new mongoose.Schema<IProjectMember>(
       type: String,
       enum: AvailableUserRoles,
       default: UserRolesEnum.MEMBER,
-      required: true,
     },
   },
   { timestamps: true },
